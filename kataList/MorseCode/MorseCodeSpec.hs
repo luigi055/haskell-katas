@@ -19,6 +19,7 @@ spec = do
   describe "Testing decodeMorseCode function" $ do
     ".-" `shouldBeTranslatedTo` "a"
     ".- -..." `shouldBeTranslatedTo` "ab"
+    "   .- -...        " `shouldBeTranslatedTo` "ab"
     ".-   -..." `shouldBeTranslatedTo` "a b"
     "----- .---- ..--- ...-- ....- ..... -.... --... ---.. ----." `shouldBeTranslatedTo` "0123456789"
     ".... . -.--   .--- ..- -.. ." `shouldBeTranslatedTo` "hey jude"
@@ -28,6 +29,7 @@ spec = do
   describe "Testing encodeMorseCode" $ do
     "a" `shouldBeEncodedTo` ".-"
     "A" `shouldBeEncodedTo` ".-"
+    "    a bc  " `shouldBeEncodedTo` ".-   -... -.-."
     "a b" `shouldBeEncodedTo` ".-   -..."
     "Hello World" `shouldBeEncodedTo` ".... . .-.. .-.. ---   .-- --- .-. .-.. -.."
     "hello world" `shouldBeEncodedTo` ".... . .-.. .-.. ---   .-- --- .-. .-.. -.."

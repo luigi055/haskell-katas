@@ -4,10 +4,11 @@ module MorseCode.Morse
 , encodeMorseCode
 ) where
 
-import MorseCode.Utils (splitString)
+import MorseCode.Utils (splitString, trim)
 import qualified Data.Map as M
 import Data.Char (toLower)
-import Data.List (intersperse)
+import Data.List (intersperse, groupBy)
+import Data.Function (on)
 
 type Morse = String
 
@@ -24,10 +25,10 @@ morseToChar :: Morse -> Maybe Char
 morseToChar m = M.lookup m morseToLetter
 
 encodeMorseCode :: String -> Morse
-encodeMorseCode = concat . intersperse " " . concat . mapM charToMorse
+encodeMorseCode = concat . intersperse " " . concat . mapM charToMorse . trim
 
 decodeMorseCode :: String -> String
-decodeMorseCode =  map maybeToString . map morseToChar . splitString ' '
+decodeMorseCode =  map maybeToString . map morseToChar . splitString ' ' . trim
   where maybeToString :: Maybe Char -> Char
         maybeToString (Just a) = a
         maybeToString Nothing = ' '

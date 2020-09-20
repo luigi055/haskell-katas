@@ -10,7 +10,7 @@ Your task is to implement a function that would take the morse code as input and
 
 ```
 decodeMorse ".... . -.--   .--- ..- -.. ."
---should return "HEY JUDE"
+--should return "hey jude"
 ```
 
 All the test strings would contain valid Morse code, so you may skip checking for errors and exceptions. In C#, tests will fail if the solution code throws an exception, please keep that in mind. This is mostly because otherwise the engine would simply ignore the tests, resulting in a "valid" solution.
@@ -18,3 +18,16 @@ All the test strings would contain valid Morse code, so you may skip checking fo
 ![](morse-code-map.png)
 
 [Original Kata from Code wars](https://www.codewars.com/kata/54b724efac3d5402db00065e)
+
+## Extra Level
+
+### Encode morse Code to Alphanumeric Character.
+
+This is the opposite version of the decodeMorse function
+
+example:
+
+```
+encodeMorse "Hey Jude"
+should return ".... . -.--   .--- ..- -.. ."
+```

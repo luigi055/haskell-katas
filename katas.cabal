@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: c1b2ef22d815b056020bf8e80275d1de6da9e4987d13072df6ef640b90e9aa24
+-- hash: 8622f04381eeb720ebe139b7da570d27c173ee9518168f2c808c69e972984e52
 
 name:           katas
 version:        0.1.0.0
@@ -52,6 +52,8 @@ test-suite katas-test
   type: exitcode-stdio-1.0
   main-is: Spec.hs
   other-modules:
+      BowlingGame.BowlingGame
+      BowlingGame.BowlingGameSpec
       MemoizedFibonacci.Fibonacci
       MemoizedFibonacci.FibonacciSpec
       MorseCode.Morse

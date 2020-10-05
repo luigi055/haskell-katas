@@ -11,8 +11,8 @@ rpslp playerOneOption playerTwoOption
     where hasDefeatedTo :: String -> String -> Bool
           hasDefeatedTo item toCompare = (0<) . length $ filter (toCompare==) (getRuleByItem item)
           hasEmptyRules = (null $ getRuleByItem playerOneNormalized) || (null $ getRuleByItem playerTwoNormalized)
-          playerOneNormalized = map (toLower) playerOneOption
-          playerTwoNormalized = map (toLower) playerTwoOption
+          playerOneNormalized = map toLower playerOneOption
+          playerTwoNormalized = map toLower playerTwoOption
 
 getRuleByItem item
   | item == spock = [scissor, rock]

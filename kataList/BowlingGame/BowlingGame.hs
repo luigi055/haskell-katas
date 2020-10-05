@@ -16,14 +16,21 @@ parseBall b
 
 processScore :: String -> Int
 processScore [] = 0
-processScore (s1:[]) = parseBall s1
-processScore (s1:'X':[]) = 0
-processScore (s1:s2:[]) = parseBall s1 + processScore [s2]
-processScore (_:'/':s3:[]) = 10 + parseBall s3
-processScore ('X':s2:s3:[]) = 10 + parseBall s2 + parseBall s3
-processScore xs@(s1:s2:s3:ss)
-  | s1 == 'X' && s3 == '/' = parseBall s1 + parseBall s3 + processScore (s3:ss)
-  | s1 == 'X' = parseBall s1 + parseBall s2 + parseBall s3 + processScore (s2:s3:ss)
-  | s1 == '/' = parseBall s1 + parseBall s2 + processScore (s2:s3:ss)
-  | s2 == '/' = parseBall s2 + parseBall s3 + processScore (s3:ss)
-  | otherwise = parseBall s1 + processScore (s2:s3:ss)
+processScore [c1] = parseBall c1
+processScore [c1,c2] = parseBall c1 + processScore [c2]
+processScore (c1:c2:c3:cs)
+  | isSpareWithBonus = ballTwo + ballThree
+  | isStrikeWithBonus = ballOne + ballTwo + ballThree
+  | isStrikeAndNextSpare = ballOne + ballThree + processScore (c2:c3:cs)
+  | isStrike = ballOne + ballTwo + ballThree + processScore (c2:c3:cs)
+  | isSpare = ballTwo + ballThree + processScore (c3:cs)
+  | otherwise = ballOne + processScore (c2:c3:cs)
+    where isStrike = c1 == 'X'
+          isSpare = c2 == '/'
+          isStrikeAndNextSpare = isStrike && c3 == '/'
+          isStrikeWithBonus = isStrike && null cs
+          isLastBallStrike = c2 == 'X' && null cs
+          isSpareWithBonus = isSpare && null cs
+          ballOne = parseBall c1
+          ballTwo = parseBall c2
+          ballThree = parseBall c3

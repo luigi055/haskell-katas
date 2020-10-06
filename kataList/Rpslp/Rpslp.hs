@@ -9,22 +9,22 @@ rpslp playerOneOption playerTwoOption
   | hasEmptyRules = "Oh, Unknown Thing"
   | otherwise = "Draw!"
     where hasDefeatedTo :: String -> String -> Bool
-          hasDefeatedTo item toCompare = (0<) . length $ filter (toCompare==) (getRuleByItem item)
-          hasEmptyRules = (null $ getRuleByItem playerOneNormalized) || (null $ getRuleByItem playerTwoNormalized)
+          hasDefeatedTo item toCompare = (>0) . length $ filter (toCompare==) (getRuleByItem item)
+          hasEmptyRules       = null (getRuleByItem playerOneNormalized) || null (getRuleByItem playerTwoNormalized)
           playerOneNormalized = map toLower playerOneOption
           playerTwoNormalized = map toLower playerTwoOption
 
 getRuleByItem item
-  | item == spock = [scissor, rock]
-  | item == lizard = [spock, paper]
-  | item == rock = [lizard, scissor]
-  | item == paper = [rock , spock]
+  | item == spock   = [scissor, rock]
+  | item == lizard  = [spock, paper]
+  | item == rock    = [lizard, scissor]
+  | item == paper   = [rock , spock]
   | item == scissor = [paper , lizard]
   | otherwise = []
-    where spock = "spock"
-          lizard = "lizard"
+    where spock   = "spock"
+          lizard  = "lizard"
           scissor = "scissor"
-          rock = "rock"
-          paper = "paper"
+          rock    = "rock"
+          paper   = "paper"
 
 

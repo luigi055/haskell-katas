@@ -31,4 +31,4 @@ decodeMorseCode :: String -> String
 decodeMorseCode =  map maybeToString . map morseToChar . splitString ' ' . trim
   where maybeToString :: Maybe Char -> Char
         maybeToString (Just a) = a
-        maybeToString Nothing = ' '
+        maybeToString Nothing  = ' '

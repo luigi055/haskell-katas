@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 7f7adec1f2bf1cb33f7e1c2b4342c5be2b1c31830ab303ec431b56c438254c2d
+-- hash: ba79a7825820e06369dbfcc03b3cce0cd276a240d2e70a6fb14898cc648d12db
 
 name:           katas
 version:        0.1.0.0
@@ -54,6 +54,8 @@ test-suite katas-test
   other-modules:
       BowlingGame.BowlingGame
       BowlingGame.BowlingGameSpec
+      CalculateString.CalculateString
+      CalculateString.CalculateStringSpec
       FizzBuzz.FizzBuzzSpec
       MemoizedFibonacci.Fibonacci
       MemoizedFibonacci.FibonacciSpec

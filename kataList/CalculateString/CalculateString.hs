@@ -4,26 +4,20 @@ import Data.Char (isDigit)
 import Data.List (groupBy, isPrefixOf)
 import Data.Function (on)
 
-slash = '/'
-newLine = "\n"
-comma = ','
-
-calculateSum delimiter strings = parseSum delimiter strings 0
-  where parseSum :: Char -> [String] -> Int -> Int
-        parseSum _ [] acc = acc
-        parseSum d (x:xs) acc
-         | x == slash:slash:d:newLine
-          || x == [d]
-          || x == newLine = parseSum d xs acc
-         | otherwise      = parseSum d xs (acc + (read x::Int))
-
-parseDelimiter :: String -> Char
-parseDelimiter s
-  | (slash:slash:"") `isPrefixOf` s = s !! 2
-  | otherwise                       = comma
-
-
 add :: String -> Int
 add numbers
   | numbers == "" = 0
-  | otherwise     = calculateSum (parseDelimiter numbers) . groupBy ((==) `on` (not . isDigit)) $ numbers
+  | otherwise     = sum . parseNumbers $ numbers
+
+parseNumbers :: String -> [Int]
+parseNumbers = map (\x -> read x :: Int) . filter (/=",") . groupBySymbols . showNumbers
+  where groupBySymbols :: String -> [String]
+        groupBySymbols = groupBy ((==) `on` (not . isDigit))
+        showNumbers :: String -> String
+        showNumbers "" = ""
+        showNumbers [a] = a:""
+        showNumbers (x:y:xs)
+          | x == '-' && isDigit y = x:y:showNumbers xs
+          | isDigit x = x:showNumbers (y:xs)
+          | (not . isDigit $ x) && (y == '-' || isDigit y) = ',':showNumbers (y:xs)
+          | otherwise = showNumbers (y:xs)

@@ -10,9 +10,9 @@ add numbers
   | otherwise     = sum . parseNumbers $ numbers
 
 parseNumbers :: String -> [Int]
-parseNumbers = map (\x -> read x :: Int) . filter (/=",") . groupBySymbols . showNumbers
+parseNumbers = map (\x -> read x :: Int) . filter (/=",") . groupBy ((==) `on` (==',')) . showNumbers
   where groupBySymbols :: String -> [String]
-        groupBySymbols = groupBy ((==) `on` (not . isDigit))
+        groupBySymbols = groupBy ((==) `on` (==','))
         showNumbers :: String -> String
         showNumbers "" = ""
         showNumbers [a] = a:""

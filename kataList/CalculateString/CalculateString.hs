@@ -5,16 +5,12 @@ import Data.List (groupBy, isPrefixOf)
 import Data.Function (on)
 
 add :: String -> Int
-add numbers
-  | numbers == "" = 0
-  | otherwise     = sum . parseNumbers $ numbers
+add = sum . parseNumbers
 
 parseNumbers :: String -> [Int]
 parseNumbers = map (\x -> read x :: Int) . filter (/=",") . groupBy ((==) `on` (==',')) . showNumbers
-  where groupBySymbols :: String -> [String]
-        groupBySymbols = groupBy ((==) `on` (==','))
-        showNumbers :: String -> String
-        showNumbers "" = ""
+  where showNumbers :: String -> String
+        showNumbers ""  = ""
         showNumbers [a] = a:""
         showNumbers (x:y:xs)
           | x == '-' && isDigit y = x:y:showNumbers xs

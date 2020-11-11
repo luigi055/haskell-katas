@@ -5,7 +5,13 @@ import Data.List (groupBy, isPrefixOf)
 import Data.Function (on)
 
 add :: String -> Int
-add = sum . parseNumbers
+add numbers 
+  | not . null $ negativeNumbers = error errorMessage
+  | otherwise = sum parsedNumbers
+    where parsedNumbers = parseNumbers numbers
+          negativeNumbers = filter (0>) parsedNumbers
+          formattedErrorNumbers = tail . init . show $ negativeNumbers
+          errorMessage = "Negative Numbers like: " ++ formattedErrorNumbers ++ " are not allowed"
 
 parseNumbers :: String -> [Int]
 parseNumbers = map (\x -> read x :: Int) . filter (/=",") . groupBy ((==) `on` (==',')) . showNumbers

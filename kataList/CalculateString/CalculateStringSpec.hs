@@ -1,6 +1,7 @@
 module CalculateString.CalculateStringSpec (spec) where
 
 import Test.Hspec
+import Control.Exception.Base
 import CalculateString.CalculateString (add)
 
 spec :: Spec
@@ -29,3 +30,7 @@ spec = do
       -- delimiter change syntax = //[delimiter]\n[numbers…]
       add "//;\n1;2;3;4;5" `shouldBe` 15
       add "//$\n1$2$3$4$5" `shouldBe` 15
+
+    it "should show throw an error when the string has negative numbers" $ do
+      evaluate (add "//;\n1;5;8;-2;4") `shouldThrow` errorCall "Negative Numbers like: -2 are not allowed"
+      evaluate (add "1,-5,8,-2,4") `shouldThrow` errorCall "Negative Numbers like: -5,-2 are not allowed"

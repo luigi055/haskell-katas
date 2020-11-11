@@ -1,7 +1,7 @@
 module CalculateString.CalculateStringSpec (spec) where
 
 import Test.Hspec
-import Control.Exception.Base
+import Control.Exception.Base (evaluate)
 import CalculateString.CalculateString (add)
 
 spec :: Spec
@@ -21,7 +21,7 @@ spec = do
 
     it "should sum all the values passed " $ do
       add "1,2,3,4" `shouldBe` 10
-      add "2,20,200,2000" `shouldBe` 2222
+      add "2,20,200" `shouldBe` 222
 
     it "should handle new lines between numbers" $ do
       add "1\n2,3,4\n5" `shouldBe` 15
@@ -34,3 +34,16 @@ spec = do
     it "should show throw an error when the string has negative numbers" $ do
       evaluate (add "//;\n1;5;8;-2;4") `shouldThrow` errorCall "Negative Numbers like: -2 are not allowed"
       evaluate (add "1,-5,8,-2,4") `shouldThrow` errorCall "Negative Numbers like: -5,-2 are not allowed"
+
+    it "should ignore numbers larger or equal than 1000" $ do
+      add "2,1001" `shouldBe` 2
+      add "2,2000,200,20" `shouldBe` 222
+
+    it "should register delimiter of any length" $ do
+      add "//[***]\n1***2***3" `shouldBe` 6
+
+    it "should allow multiple delimiter" $ do
+      add "//[*][%]\n1*2%3" `shouldBe` 6
+
+    it "should handle multiple delimiters with length longer than one char" $ do
+      add "//[***][%&]\n1***2%&3" `shouldBe` 6
